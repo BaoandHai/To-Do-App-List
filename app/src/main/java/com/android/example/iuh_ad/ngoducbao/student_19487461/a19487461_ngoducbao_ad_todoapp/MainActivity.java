@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lvCongViec = (ListView) findViewById(R.id.listviewCongViec);
+        lvCongViec = findViewById(R.id.listviewCongViec);
         arrayCongViec = new ArrayList<>();
 
         adapter = new CongViecAdapter(MainActivity.this, R.layout.row_task, arrayCongViec);
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         dataBase.QueryData("CREATE TABLE IF NOT EXISTS CongViec(Id INTEGER PRIMARY KEY AUTOINCREMENT, TenCV VARCHAR(200))");
 
-        dataBase.QueryData("INSERT INTO CongViec VALUES (null, 'Do homework')");
-        dataBase.QueryData("INSERT INTO CongViec VALUES (null, 'Write note')");
+//        dataBase.QueryData("INSERT INTO CongViec VALUES (null, 'Do homework')");
+//        dataBase.QueryData("INSERT INTO CongViec VALUES (null, 'Write note')");
 
         GetDataCongViec();
     }
@@ -72,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void DialogEditCongViec(String ten, int id){
         Dialog dialog= new Dialog(MainActivity.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);// Để loại bỏ dòng title
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_edit_task);
 
-        EditText edtNameEdit = (EditText) dialog.findViewById(R.id.editTextTenCVEdit);
-        Button btnXacNhanEdit = (Button) dialog.findViewById(R.id.buttonXacNhanEdit);
-        Button btnHuyEdit = (Button) dialog.findViewById(R.id.buttonHuyEdit);
+        EditText edtNameEdit =  dialog.findViewById(R.id.editTextTenCVEdit);
+        Button btnXacNhanEdit =  dialog.findViewById(R.id.buttonXacNhanEdit);
+        Button btnHuyEdit =  dialog.findViewById(R.id.buttonHuyEdit);
 
         edtNameEdit.setText(ten);
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String tenMoi = edtNameEdit.getText().toString().trim();
                 dataBase.QueryData("UPDATE CongViec SET TenCV = '"+ tenMoi +"' WHERE Id = '"+ id +"'");
-                Toast.makeText(MainActivity.this, "Đã cập nhật", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 GetDataCongViec();
             }
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Vui lòng nhập tên công việc!", Toast.LENGTH_SHORT).show();
                 }else {
                     dataBase.QueryData("INSERT INTO CongViec VALUES (null, '"+ tencv +"')");
-                    Toast.makeText(MainActivity.this, "Đã thêm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Added", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     GetDataCongViec();
                 }
